@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_chat/home/home.dart';
+import 'package:flutter_chat/l10n/l10n.dart';
 import 'package:flutter_chat/login/login.dart';
 
 class LoginPage extends StatelessWidget {
@@ -26,9 +27,10 @@ class LoginView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Login'),
+        title: Text(l10n.loginAppBarTitle),
       ),
       body: const Center(
         child: LoginWithGoogleButton(),
@@ -44,6 +46,7 @@ class LoginWithGoogleButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return BlocConsumer<LoginBloc, LoginState>(
       listener: (context, state) {
         if (state is LoginSuccess) {
@@ -55,10 +58,10 @@ class LoginWithGoogleButton extends StatelessWidget {
           );
         } else if (state is LoginFailure) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
+            SnackBar(
               content: Text(
-                'Failed to login. Try again.',
-                style: TextStyle(
+                l10n.loginFailureText,
+                style: const TextStyle(
                   color: Colors.redAccent,
                 ),
               ),
@@ -74,9 +77,9 @@ class LoginWithGoogleButton extends StatelessWidget {
             onPressed: () {
               BlocProvider.of<LoginBloc>(context).add(LoginWithGooglePressed());
             },
-            child: const Text(
-              'Login with Google',
-              style: TextStyle(
+            child: Text(
+              l10n.loginButtonTitle,
+              style: const TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
               ),

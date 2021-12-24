@@ -3,5 +3,25 @@
     "counterAppBarTitle": "Counter",
     "@counterAppBarTitle": {
         "description": "Text shown in the AppBar of the Counter Page"
+    },
+    "loginAppBarTitle": "Login",
+    "@loginAppBarTitle": {
+        "description": "Text shown in the AppBar of the Login Page"
+    },
+    "loginButtonTitle": "Login with Google",
+    "@loginButtonTitle": {
+        "description": "Text shown in the Button of the Login Page"
+    },
+    "loginFailureText": "Failed to login. Try again.",
+    "@loginFailureText": {
+        "description": "Text shown in the snackbar of the Login Page when login fails"
+    },
+    "homeAppBarTitle": "Home",
+    "@homeAppBarTitle": {
+        "description": "Text shown in the AppBar of the Home Page"
+    },
+    "homeWelcomeTitle": "Welcome login user ",
+    "@homeWelcomeTitle": {
+        "description": "Text shown in the to welcome in the Home Page"
     }
 }
