@@ -13,3 +13,5 @@ class LoginStateChanged extends LoginEvent {
   });
   final bool isLoggedIn;
 }
+
+class LoginRemoved extends LoginEvent {}

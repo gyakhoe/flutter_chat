@@ -15,4 +15,8 @@ class LoginRepository {
     final streamOfUser = loginFirebaseProvider.isLoggedIn();
     return streamOfUser.map((user) => user != null);
   }
+
+  Future<void> logOut() async {
+    await loginFirebaseProvider.logOut();
+  }
 }

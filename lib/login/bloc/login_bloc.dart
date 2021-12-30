@@ -15,6 +15,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<LoginWithGooglePressed>(_onLoginWithGoogle);
     on<LoginVerfied>(_onLoginVerified);
     on<LoginStateChanged>(_onLoginstateChanged);
+    on<LoginRemoved>(_onLoginRemoved);
   }
 
   final LoginRepository loginRepository;
@@ -57,5 +58,18 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     Emitter<LoginState> emit,
   ) {
     emit(event.isLoggedIn ? LoginSuccess() : LoginFailure());
+  }
+
+  FutureOr<void> _onLoginRemoved(
+    LoginRemoved event,
+    Emitter<LoginState> emit,
+  ) async {
+    try {
+      emit(LoginInprogress());
+      await loginRepository.logOut();
+    } catch (e) {
+      log('Unexpected error occurred while logout ${e.toString()}');
+      LoginFailure();
+    }
   }
 }

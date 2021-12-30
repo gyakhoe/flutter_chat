@@ -21,4 +21,8 @@ class LoginFirebaseProvider {
   Stream<User?> isLoggedIn() {
     return firebaseAuth.authStateChanges();
   }
+
+  Future<void> logOut() async {
+    await firebaseAuth.signOut();
+  }
 }

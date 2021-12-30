@@ -56,8 +56,13 @@ class AppView extends StatelessWidget {
         } else if (state is LoginSuccess) {
           return const HomePage();
         } else if (state is LoginInprogress) {
-          return const CircularProgressIndicator();
-        } else {
+          return const Scaffold(
+            body: Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
+        }
+        {
           return Text('Undefined state ${state.runtimeType}');
         }
       },
