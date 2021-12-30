@@ -10,4 +10,9 @@ class LoginRepository {
   Future<void> loginWithGoogle() async {
     await loginFirebaseProvider.loginWithGoogle();
   }
+
+  Stream<bool> isLoggedIn() {
+    final streamOfUser = loginFirebaseProvider.isLoggedIn();
+    return streamOfUser.map((user) => user != null);
+  }
 }

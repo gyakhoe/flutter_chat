@@ -17,4 +17,8 @@ class LoginFirebaseProvider {
     );
     await firebaseAuth.signInWithCredential(credential);
   }
+
+  Stream<User?> isLoggedIn() {
+    return firebaseAuth.authStateChanges();
+  }
 }
