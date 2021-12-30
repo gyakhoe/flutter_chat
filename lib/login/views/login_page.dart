@@ -1,7 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_chat/home/home.dart';
 import 'package:flutter_chat/l10n/l10n.dart';
 import 'package:flutter_chat/login/login.dart';
 
@@ -10,15 +8,7 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => LoginBloc(
-        loginRepository: LoginRepository(
-          loginFirebaseProvider:
-              LoginFirebaseProvider(firebaseAuth: FirebaseAuth.instance),
-        ),
-      ),
-      child: const LoginView(),
-    );
+    return const LoginView();
   }
 }
 
@@ -47,28 +37,7 @@ class LoginWithGoogleButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    return BlocConsumer<LoginBloc, LoginState>(
-      listener: (context, state) {
-        if (state is LoginSuccess) {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute<void>(
-              builder: (BuildContext context) => const HomePage(),
-            ),
-          );
-        } else if (state is LoginFailure) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(
-                l10n.loginFailureText,
-                style: const TextStyle(
-                  color: Colors.redAccent,
-                ),
-              ),
-            ),
-          );
-        }
-      },
+    return BlocBuilder<LoginBloc, LoginState>(
       builder: (context, state) {
         if (state is LoginInitial || state is LoginFailure) {
           return MaterialButton(
