@@ -8,10 +8,10 @@ class LoginWithGooglePressed extends LoginEvent {}
 class LoginVerfied extends LoginEvent {}
 
 class LoginStateChanged extends LoginEvent {
+  final AppUser? user;
   LoginStateChanged({
-    required this.isLoggedIn,
+    this.user,
   });
-  final bool isLoggedIn;
 }
 
 class LoginRemoved extends LoginEvent {}

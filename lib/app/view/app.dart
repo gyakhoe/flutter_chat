@@ -8,9 +8,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_chat/home/home.dart';
 import 'package:flutter_chat/l10n/l10n.dart';
 import 'package:flutter_chat/login/login.dart';
+import 'package:flutter_chat/registration/registration.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 class App extends StatelessWidget {
@@ -54,7 +54,7 @@ class AppView extends StatelessWidget {
         if (state is LoginFailure) {
           return const LoginPage();
         } else if (state is LoginSuccess) {
-          return const HomePage();
+          return RegistrationPage(authenticatedUser: state.user);
         } else if (state is LoginInprogress) {
           return const Scaffold(
             body: Center(
