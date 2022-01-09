@@ -1,0 +1,16 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+class ContactFirebaseProvider {
+  final FirebaseFirestore firestore;
+
+  ContactFirebaseProvider({
+    required this.firestore,
+  });
+
+  Future<List<Map<String, dynamic>>> getContacts() async {
+    final userQuerySnap = await firestore.collection('users').get();
+    return userQuerySnap.docs
+        .map((queryDocSnap) => queryDocSnap.data())
+        .toList();
+  }
+}
