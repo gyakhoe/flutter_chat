@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_chat/home/home.dart';
+import 'package:flutter_chat/l10n/l10n.dart';
 
 import 'package:flutter_chat/registration/bloc/registration_bloc.dart';
 import 'package:flutter_chat/registration/registration.dart';
@@ -60,6 +61,7 @@ class RegistrationView extends StatelessWidget {
   }
 
   void _registrationListener(BuildContext context, RegistrationState state) {
+    final l10n = context.l10n;
     if (state is RegistrationActionFailure) {
       BlocProvider.of<RegistrationBloc>(context).add(
         RegistrationDetailUpdated(user: authenticatedUser),
@@ -67,14 +69,15 @@ class RegistrationView extends StatelessWidget {
     } else if (state is RegistrationActionError) {
       ScaffoldMessenger.of(context).hideCurrentSnackBar();
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Unable to fetch user detail.'),
+        SnackBar(
+          content: Text(l10n.counterAppBarTitle),
         ),
       );
     }
   }
 
   Widget _registrationBuilder(BuildContext context, RegistrationState state) {
+    final l10n = context.l10n;
     if (state is RegistrationInprogress) {
       return const CircularProgressIndicator();
     } else if (state is RegistrationUpdateSuccess) {
@@ -83,6 +86,6 @@ class RegistrationView extends StatelessWidget {
       return HomePage(authenticateduser: state.user);
     }
 
-    return Text('Undefined state ${state.runtimeType}');
+    return Text('${l10n.undefinedStateText} ${state.runtimeType}');
   }
 }

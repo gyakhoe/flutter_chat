@@ -23,5 +23,18 @@
     "homeWelcomeTitle": "Welcome login user ",
     "@homeWelcomeTitle": {
         "description": "Text shown in the to welcome in the Home Page"
+    },
+    "registrationUserNotFoundText": "Unable to fetch user detail. ",
+    "@registrationUserNotFoundText": {
+        "description": "Text shown in the to registration page when user detail is not found"
+    
+    },
+    "welcomeText": "Welcome ",
+    "@welcomeText": {
+        "description": "Welcome tex"
+    },
+    "undefinedStateText": "Undefined state ",
+    "@undefinedStateText": {
+        "description": "Text to show the state is not handled"
     }
 }

@@ -49,6 +49,7 @@ class AppView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return BlocBuilder<LoginBloc, LoginState>(
       builder: (context, state) {
         if (state is LoginFailure) {
@@ -63,7 +64,7 @@ class AppView extends StatelessWidget {
           );
         }
         {
-          return Text('Undefined state ${state.runtimeType}');
+          return Text('${l10n.undefinedStateText} ${state.runtimeType}');
         }
       },
     );

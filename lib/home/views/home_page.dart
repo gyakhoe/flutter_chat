@@ -40,7 +40,7 @@ class HomeView extends StatelessWidget {
         ],
       ),
       body: Center(
-        child: Text('Welcome ${authenticateduser.displayName}'),
+        child: Text('${l10n.welcomeText} ${authenticateduser.displayName}'),
       ),
     );
   }
