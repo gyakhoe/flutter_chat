@@ -2,7 +2,9 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
+
 import 'package:flutter_chat/login/login.dart';
+import 'package:flutter_chat/registration/registration.dart';
 import 'package:meta/meta.dart';
 
 part 'login_event.dart';
@@ -33,8 +35,13 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   ) async {
     try {
       emit(LoginInprogress());
-      await loginRepository.loginWithGoogle();
-      emit(LoginSuccess());
+      final authenticateduser = await loginRepository.loginWithGoogle();
+      log('the logged in user is ${authenticateduser?.displayName}');
+      emit(
+        authenticateduser == null
+            ? LoginFailure()
+            : LoginSuccess(user: authenticateduser),
+      );
     } catch (any) {
       log('Issue occured while login with google ${any.toString()}');
       emit(LoginFailure());
@@ -44,8 +51,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   void _onLoginVerified(LoginVerfied event, Emitter<LoginState> emit) {
     try {
       emit(LoginInprogress());
-      isLoginStates = loginRepository.isLoggedIn().listen((isLoggedIn) {
-        add(LoginStateChanged(isLoggedIn: isLoggedIn));
+      isLoginStates = loginRepository.getLoggedInUser().listen((user) {
+        add(LoginStateChanged(user: user));
       });
     } catch (e) {
       log('Issue  while checking for authentication state ${e.toString()}');
@@ -57,7 +64,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     LoginStateChanged event,
     Emitter<LoginState> emit,
   ) {
-    emit(event.isLoggedIn ? LoginSuccess() : LoginFailure());
+    final user = event.user;
+    emit(user == null ? LoginFailure() : LoginSuccess(user: user));
   }
 
   FutureOr<void> _onLoginRemoved(

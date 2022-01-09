@@ -8,14 +8,15 @@ class LoginFirebaseProvider {
 
   final FirebaseAuth firebaseAuth;
 
-  Future<void> loginWithGoogle() async {
+  Future<User?> loginWithGoogle() async {
     final googleSignInAccount = await GoogleSignIn().signIn();
     final googleAuth = await googleSignInAccount?.authentication;
     final credential = GoogleAuthProvider.credential(
       accessToken: googleAuth?.accessToken,
       idToken: googleAuth?.idToken,
     );
-    await firebaseAuth.signInWithCredential(credential);
+    final userCredential = await firebaseAuth.signInWithCredential(credential);
+    return userCredential.user;
   }
 
   Stream<User?> isLoggedIn() {
@@ -23,6 +24,7 @@ class LoginFirebaseProvider {
   }
 
   Future<void> logOut() async {
+    await GoogleSignIn().signOut();
     await firebaseAuth.signOut();
   }
 }

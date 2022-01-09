@@ -2,9 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_chat/l10n/l10n.dart';
 import 'package:flutter_chat/login/login.dart';
+import 'package:flutter_chat/registration/registration.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+  final AppUser authenticateduser;
+  const HomePage({
+    Key? key,
+    required this.authenticateduser,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return HomeView(authenticateduser: authenticateduser);
+  }
+}
+
+class HomeView extends StatelessWidget {
+  final AppUser authenticateduser;
+  const HomeView({
+    Key? key,
+    required this.authenticateduser,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +39,9 @@ class HomePage extends StatelessWidget {
           )
         ],
       ),
-      body: Center(child: Text(l10n.homeWelcomeTitle)),
+      body: Center(
+        child: Text('${l10n.welcomeText} ${authenticateduser.displayName}'),
+      ),
     );
   }
 }
