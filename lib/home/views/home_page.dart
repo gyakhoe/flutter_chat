@@ -17,12 +17,34 @@ class HomePage extends StatelessWidget {
   }
 }
 
-class HomeView extends StatelessWidget {
+class HomeView extends StatefulWidget {
   final AppUser authenticateduser;
   const HomeView({
     Key? key,
     required this.authenticateduser,
   }) : super(key: key);
+
+  @override
+  State<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
+  int selectedItem = 0;
+
+  static const List<Widget> _pages = <Widget>[
+    Icon(
+      Icons.contacts_rounded,
+      size: 150,
+    ),
+    Icon(
+      Icons.chat_rounded,
+      size: 150,
+    ),
+    Icon(
+      Icons.person_rounded,
+      size: 150,
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -39,8 +61,24 @@ class HomeView extends StatelessWidget {
           )
         ],
       ),
-      body: Center(
-        child: Text('${l10n.welcomeText} ${authenticateduser.displayName}'),
+      body: Center(child: _pages.elementAt(selectedItem)),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: selectedItem,
+        onTap: (value) => setState(() => selectedItem = value),
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.contacts_rounded),
+            label: 'Contacts',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.chat_bubble_rounded),
+            label: 'Chat',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person_rounded),
+            label: 'Profile',
+          ),
+        ],
       ),
     );
   }
