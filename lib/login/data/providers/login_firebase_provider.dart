@@ -19,7 +19,7 @@ class LoginFirebaseProvider {
     return userCredential.user;
   }
 
-  Stream<User?> isLoggedIn() {
+  Stream<User?> getLoggedInUserStates() {
     return firebaseAuth.authStateChanges();
   }
 
