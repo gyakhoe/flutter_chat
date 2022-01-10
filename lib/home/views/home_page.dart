@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_chat/contact/contact.dart';
+import 'package:flutter_chat/home/home.dart';
 import 'package:flutter_chat/l10n/l10n.dart';
 import 'package:flutter_chat/login/login.dart';
 import 'package:flutter_chat/registration/registration.dart';
@@ -13,7 +15,12 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return HomeView(authenticateduser: authenticateduser);
+    return BlocProvider(
+      create: (context) => HomeBloc(),
+      child: HomeView(
+        authenticateduser: authenticateduser,
+      ),
+    );
   }
 }
 
@@ -31,21 +38,6 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   int selectedItem = 0;
 
-  static const List<Widget> _pages = <Widget>[
-    Icon(
-      Icons.contacts_rounded,
-      size: 150,
-    ),
-    Icon(
-      Icons.chat_rounded,
-      size: 150,
-    ),
-    Icon(
-      Icons.person_rounded,
-      size: 150,
-    ),
-  ];
-
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
@@ -61,10 +53,10 @@ class _HomeViewState extends State<HomeView> {
           )
         ],
       ),
-      body: Center(child: _pages.elementAt(selectedItem)),
+      body: _homeBodyBuilder(context),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: selectedItem,
-        onTap: (value) => setState(() => selectedItem = value),
+        onTap: _onBottomNavTapped,
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.contacts_rounded),
@@ -81,5 +73,34 @@ class _HomeViewState extends State<HomeView> {
         ],
       ),
     );
+  }
+
+  Widget _homeBodyBuilder(BuildContext context) {
+    return BlocBuilder<HomeBloc, HomeState>(
+      builder: (context, state) {
+        if (state is HomeContact) {
+          return ContactPage(authenticatedUser: widget.authenticateduser);
+        } else if (state is HomeChat) {
+          return const Center(
+            child: Text('Chat page will be displayed here'),
+          );
+        } else {
+          return const Center(
+            child: Text('Profile page will be displayed here'),
+          );
+        }
+      },
+    );
+  }
+
+  void _onBottomNavTapped(int value) {
+    if (value == 0) {
+      BlocProvider.of<HomeBloc>(context).add(HomeContactTapped());
+    } else if (value == 1) {
+      BlocProvider.of<HomeBloc>(context).add(HomeChatTapped());
+    } else {
+      BlocProvider.of<HomeBloc>(context).add(HomeProfileTapped());
+    }
+    setState(() => selectedItem = value);
   }
 }

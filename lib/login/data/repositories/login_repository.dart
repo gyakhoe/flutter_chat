@@ -21,12 +21,12 @@ class LoginRepository {
   }
 
   Stream<bool> isLoggedIn() {
-    final streamOfUser = loginFirebaseProvider.isLoggedIn();
+    final streamOfUser = loginFirebaseProvider.getLoggedInUserStates();
     return streamOfUser.map((user) => user != null);
   }
 
   Stream<AppUser?> getLoggedInUser() {
-    final loggedInUserStream = loginFirebaseProvider.isLoggedIn();
+    final loggedInUserStream = loginFirebaseProvider.getLoggedInUserStates();
     return loggedInUserStream.map((firebaseuser) {
       if (firebaseuser == null) {
         return null;

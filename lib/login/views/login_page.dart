@@ -37,27 +37,19 @@ class LoginWithGoogleButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    return BlocBuilder<LoginBloc, LoginState>(
-      builder: (context, state) {
-        if (state is LoginInitial || state is LoginFailure) {
-          return MaterialButton(
-            elevation: 5,
-            color: Theme.of(context).primaryColor,
-            onPressed: () {
-              BlocProvider.of<LoginBloc>(context).add(LoginWithGooglePressed());
-            },
-            child: Text(
-              l10n.loginButtonTitle,
-              style: const TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          );
-        } else {
-          return const CircularProgressIndicator();
-        }
+    return MaterialButton(
+      elevation: 5,
+      color: Theme.of(context).primaryColor,
+      onPressed: () {
+        BlocProvider.of<LoginBloc>(context).add(LoginWithGooglePressed());
       },
+      child: Text(
+        l10n.loginButtonTitle,
+        style: const TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
     );
   }
 }
