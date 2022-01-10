@@ -8,19 +8,16 @@
 
 ## Description
 
-Login page
-1. Login builder removed and only material button is set
-2. Contact page build with data store in firestore
-3. Name changes and clean has been done.
+<!--- Describe your changes in detail -->
 
 ## Type of Change
 
 <!--- Put an `x` in all the boxes that apply: -->
 
-- [x] ✨ New feature (non-breaking change which adds functionality)
-- [x] 🛠️ Bug fix (non-breaking change which fixes an issue)
+- [ ] ✨ New feature (non-breaking change which adds functionality)
+- [ ] 🛠️ Bug fix (non-breaking change which fixes an issue)
 - [ ] ❌ Breaking change (fix or feature that would cause existing functionality to change)
-- [x] 🧹 Code refactor
+- [ ] 🧹 Code refactor
 - [ ] ✅ Build configuration change
 - [ ] 📝 Documentation
 - [ ] 🗑️ Chore
