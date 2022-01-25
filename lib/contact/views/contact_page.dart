@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:flutter_chat/contact/bloc/contact_bloc.dart';
 import 'package:flutter_chat/contact/data/provider/contact_firebase_provider.dart';
 import 'package:flutter_chat/contact/data/repository/contact_repository.dart';
+import 'package:flutter_chat/conversation/conversation.dart';
 import 'package:flutter_chat/l10n/l10n.dart';
 import 'package:flutter_chat/registration/registration.dart';
 
@@ -25,17 +25,17 @@ class ContactPage extends StatelessWidget {
         ),
       )..add(ContactListRequested(loginUID: authenticatedUser.uid)),
       child: ContactView(
-        loginUID: authenticatedUser.uid,
+        loginUser: authenticatedUser,
       ),
     );
   }
 }
 
 class ContactView extends StatelessWidget {
-  final String loginUID;
+  final AppUser loginUser;
   const ContactView({
     Key? key,
-    required this.loginUID,
+    required this.loginUser,
   }) : super(key: key);
 
   @override
@@ -68,6 +68,20 @@ class ContactView extends StatelessWidget {
           ),
           title: Text(contact.displayName),
           subtitle: Text(contact.email),
+          trailing: IconButton(
+            icon: const Icon(Icons.arrow_forward_ios_rounded),
+            onPressed: () {
+              Navigator.push<MaterialPageRoute>(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ConversationPage(
+                    receiver: contact,
+                    sender: loginUser,
+                  ),
+                ),
+              );
+            },
+          ),
         );
       },
     );
