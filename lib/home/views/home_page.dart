@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_chat/chat/chat.dart';
 import 'package:flutter_chat/contact/contact.dart';
 import 'package:flutter_chat/home/home.dart';
 import 'package:flutter_chat/l10n/l10n.dart';
@@ -81,8 +82,8 @@ class _HomeViewState extends State<HomeView> {
         if (state is HomeContact) {
           return ContactPage(authenticatedUser: widget.authenticateduser);
         } else if (state is HomeChat) {
-          return const Center(
-            child: Text('Chat page will be displayed here'),
+          return ChatPage(
+            authenticatedUser: widget.authenticateduser,
           );
         } else {
           return const Center(
