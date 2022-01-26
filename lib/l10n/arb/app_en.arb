@@ -48,5 +48,9 @@
     "noMessgesText": "Say Hi! No messages yet",
     "@noMessgesText": {
         "description": "Text to show when there is not messages shared between two user"
+    },
+    "notChatsText": "No chats yet. Go to contact and start conversation.",
+    "@notChatsText": {
+        "description": "Text to show when there is not conversation created"
     }
 }
