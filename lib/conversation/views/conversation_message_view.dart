@@ -48,17 +48,19 @@ class _MessageListBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: messages.length,
-      reverse: true,
-      itemBuilder: (BuildContext context, int index) {
-        final message = messages.elementAt(index);
-        return _MessageBody(
-          isMine: message?.senderUID == loginUID,
-          message: message,
-        );
-      },
-    );
+    return messages.isEmpty
+        ? const Text('Say hi! No messages yet')
+        : ListView.builder(
+            itemCount: messages.length,
+            reverse: true,
+            itemBuilder: (BuildContext context, int index) {
+              final message = messages.elementAt(index);
+              return _MessageBody(
+                isMine: message?.senderUID == loginUID,
+                message: message,
+              );
+            },
+          );
   }
 }
 

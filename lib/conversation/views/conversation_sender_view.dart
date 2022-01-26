@@ -81,11 +81,6 @@ class _ConversationSenderViewState extends State<ConversationSenderView> {
                       ),
                     );
                   }
-
-                  //TODO: You have to remove this code later to somewhere else
-                  // if (!FocusScope.of(context).hasPrimaryFocus) {
-                  //   FocusScope.of(context).unfocus();
-                  // }
                 },
               );
             },

@@ -7,7 +7,7 @@ class ConversationRepository {
     required this.conversationFirebaseProvider,
   });
 
-  Future<Conversation> getConversation({
+  Future<Conversation?> getConversation({
     required String senderUID,
     required String receiverUID,
   }) async {
@@ -15,7 +15,11 @@ class ConversationRepository {
       senderUID: senderUID,
       receiverUID: receiverUID,
     );
-    return Conversation.fromMap(convesationMap);
+    if (convesationMap == null) {
+      return null;
+    } else {
+      return Conversation.fromMap(convesationMap);
+    }
   }
 
   Future<String> createConversation({

@@ -5,6 +5,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
 import 'package:flutter_chat/conversation/conversation.dart';
+import 'package:flutter_chat/registration/registration.dart';
 
 part 'conversation_event.dart';
 part 'conversation_state.dart';
@@ -26,15 +27,29 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
     try {
       emit(ConversationLoadInprogress());
       final conversationDetail = await conversationRepository.getConversation(
-        senderUID: event.loginUID,
-        receiverUID: event.receiverUID,
+        senderUID: event.loginUser.uid,
+        receiverUID: event.receiver.uid,
       );
-      emit(ConversationLoadSuccess(conversation: conversationDetail));
+
+      if (conversationDetail != null) {
+        emit(ConversationLoadSuccess(conversation: conversationDetail));
+      } else {
+        add(
+          ConversationCreated(
+            conversation: Conversation(
+              creator: event.loginUser,
+              receiver: event.receiver,
+              members: [event.loginUser.uid, event.receiver.uid],
+            ),
+          ),
+        );
+      }
     } catch (e, stackTrace) {
       log('Issue whiel fetching covnersation detail ${e.toString()}');
       log('Stack trace is ${stackTrace.toString()}');
-
-      emit(const ConversationLoadFailure(message: 'Unable to load Contacts'));
+      emit(
+        const ConversationLoadFailure(message: 'Unable to load Conversation'),
+      );
     }
   }
 

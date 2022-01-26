@@ -9,7 +9,7 @@ class ConversationFirebaseProvider {
     required this.firestore,
   });
 
-  Future<Map<String, dynamic>> getConversationId({
+  Future<Map<String, dynamic>?> getConversationId({
     required String senderUID,
     required String receiverUID,
   }) async {
@@ -24,7 +24,10 @@ class ConversationFirebaseProvider {
       ],
     ).get();
     log(conversationQuerySnap.docs.length.toString());
-    return conversationQuerySnap.docs.first.data();
+    if (conversationQuerySnap.docs.isNotEmpty) {
+      return conversationQuerySnap.docs.first.data();
+    }
+    return null;
   }
 
   Future<String> createConversation({

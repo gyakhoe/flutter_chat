@@ -13,13 +13,13 @@ import 'package:flutter_chat/registration/registration.dart';
 class ConversationMainView extends StatelessWidget {
   final AppUser loginUser;
   final AppUser receiver;
-  final String? conversationId;
+  final String conversationId;
 
   const ConversationMainView({
     Key? key,
     required this.loginUser,
     required this.receiver,
-    this.conversationId,
+    required this.conversationId,
   }) : super(key: key);
 
   @override
@@ -43,7 +43,7 @@ class ConversationMainView extends StatelessWidget {
                     firestore: FirebaseFirestore.instance,
                   ),
                 ),
-              )..add(MessageRequested(conversationId: conversationId ?? '')),
+              )..add(MessageRequested(conversationId: conversationId)),
               child: ConversationMessageView(
                 receiver: receiver,
                 loginUser: loginUser,

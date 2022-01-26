@@ -30,19 +30,10 @@ class ConversationPage extends StatelessWidget {
         ),
       )..add(
           ConversataionDetailRequested(
-            loginUID: sender.uid,
-            receiverUID: receiver.uid,
+            loginUser: sender,
+            receiver: receiver,
           ),
         ),
-      // )..add(
-      //     ConversationCreated(
-      //       conversation: Conversation(
-      //         creator: sender,
-      //         members: [sender.uid, receiver.uid],
-      //         receiver: receiver,
-      //       ),
-      //     ),
-      //   ),
       child: ConversationView(
         loginUser: sender,
         receiver: receiver,
@@ -80,11 +71,19 @@ class ConversationView extends StatelessWidget {
               return ConversationMainView(
                 loginUser: loginUser,
                 receiver: receiver,
-                conversationId: state.conversation.id,
+                conversationId: state.conversation.id ?? '',
               );
-            } else if (state is ConversationLoadInprogress) {
+            } else if (state is ConversationCreationSuccess) {
+              return ConversationMainView(
+                loginUser: loginUser,
+                receiver: receiver,
+                conversationId: state.conversationId,
+              );
+            } else if (state is ConversationLoadInprogress ||
+                state is ConversationCreationInprogress) {
               return const CircularProgressIndicator();
-            } else if (state is ConversationLoadFailure) {
+            } else if (state is ConversationLoadFailure ||
+                state is ConversationCreationFailure) {
               return const Text(
                 'We are unable to load conversation. Please try again.',
               );

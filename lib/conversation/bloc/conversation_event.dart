@@ -8,11 +8,11 @@ abstract class ConversationEvent extends Equatable {
 }
 
 class ConversataionDetailRequested extends ConversationEvent {
-  final String loginUID;
-  final String receiverUID;
+  final AppUser loginUser;
+  final AppUser receiver;
   const ConversataionDetailRequested({
-    required this.loginUID,
-    required this.receiverUID,
+    required this.loginUser,
+    required this.receiver,
   });
 }
 
