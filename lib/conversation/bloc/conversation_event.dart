@@ -7,10 +7,10 @@ abstract class ConversationEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class ConversataionDetailRequested extends ConversationEvent {
+class ConversationDetailRequested extends ConversationEvent {
   final AppUser loginUser;
   final AppUser receiver;
-  const ConversataionDetailRequested({
+  const ConversationDetailRequested({
     required this.loginUser,
     required this.receiver,
   });

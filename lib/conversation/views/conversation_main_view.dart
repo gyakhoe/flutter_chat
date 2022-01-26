@@ -25,55 +25,48 @@ class ConversationMainView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const heightOfContainer = 50;
-    return Container(
-      height: double.infinity,
-      width: double.infinity,
-      color: Colors.pink,
-      child: ListView(
-        children: [
-          Container(
-            height: MediaQuery.of(context).size.height -
-                AppBar().preferredSize.height -
-                heightOfContainer -
-                20,
-            color: Colors.yellow,
+    return ListView(
+      children: [
+        SizedBox(
+          height: MediaQuery.of(context).size.height -
+              AppBar().preferredSize.height -
+              heightOfContainer -
+              20,
+          child: BlocProvider(
+            create: (context) => MessageReceiverBloc(
+              messageRepository: MessageRepository(
+                messageFirebaseProvider: MessageFirebaseProvider(
+                  firestore: FirebaseFirestore.instance,
+                ),
+              ),
+            )..add(MessageRequested(conversationId: conversationId)),
+            child: ConversationMessageView(
+              receiver: receiver,
+              loginUser: loginUser,
+            ),
+          ),
+        ),
+        Container(
+          height: heightOfContainer.toDouble(),
+          padding: const EdgeInsets.all(5),
+          child: Center(
             child: BlocProvider(
-              create: (context) => MessageReceiverBloc(
-                messageRepository: MessageRepository(
+              create: (context) => MessageSenderBloc(
+                MessageRepository(
                   messageFirebaseProvider: MessageFirebaseProvider(
                     firestore: FirebaseFirestore.instance,
                   ),
                 ),
-              )..add(MessageRequested(conversationId: conversationId)),
-              child: ConversationMessageView(
-                receiver: receiver,
-                loginUser: loginUser,
+              ),
+              child: ConversationSenderView(
+                conversationId: conversationId,
+                senderUID: loginUser.uid,
+                receiverUID: receiver.uid,
               ),
             ),
           ),
-          Container(
-            height: heightOfContainer.toDouble(),
-            color: Colors.green,
-            padding: const EdgeInsets.all(5),
-            child: Center(
-              child: BlocProvider(
-                create: (context) => MessageSenderBloc(
-                  MessageRepository(
-                    messageFirebaseProvider: MessageFirebaseProvider(
-                      firestore: FirebaseFirestore.instance,
-                    ),
-                  ),
-                ),
-                child: ConversationSenderView(
-                  conversationId: conversationId,
-                  senderUID: loginUser.uid,
-                  receiverUID: receiver.uid,
-                ),
-              ),
-            ),
-          )
-        ],
-      ),
+        )
+      ],
     );
   }
 }

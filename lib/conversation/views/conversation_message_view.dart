@@ -54,7 +54,7 @@ class _MessageListBuilder extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     return messages.isEmpty
-        ? Text(l10n.unableToFetchMessageText)
+        ? Text(l10n.noMessgesText)
         : ListView.builder(
             itemCount: messages.length,
             reverse: true,

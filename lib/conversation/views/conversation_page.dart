@@ -28,7 +28,7 @@ class ConversationPage extends StatelessWidget {
           ),
         ),
       )..add(
-          ConversataionDetailRequested(
+          ConversationDetailRequested(
             loginUser: sender,
             receiver: receiver,
           ),

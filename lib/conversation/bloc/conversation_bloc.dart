@@ -15,13 +15,12 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
   ConversationBloc({
     required this.conversationRepository,
   }) : super(ConversationInitial()) {
-    on<ConversataionDetailRequested>(_onConversationDetailRequested);
+    on<ConversationDetailRequested>(_onConversationDetailRequested);
     on<ConversationCreated>(_onConversationCreated);
   }
 
-  // ! What happens when there is no conversation? will be ok with failure?
   FutureOr<void> _onConversationDetailRequested(
-    ConversataionDetailRequested event,
+    ConversationDetailRequested event,
     Emitter<ConversationState> emit,
   ) async {
     try {

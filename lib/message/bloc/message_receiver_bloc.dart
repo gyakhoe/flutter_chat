@@ -36,7 +36,6 @@ class MessageReceiverBloc
       messageStream = messageRepository
           .getMessages(conversationId: event.conversationId)
           .listen((messages) {
-        log('event triggerd');
         add(MessageReceived(messages: messages));
       });
     } on Exception catch (e, trace) {
