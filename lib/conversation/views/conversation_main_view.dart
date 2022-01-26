@@ -24,6 +24,7 @@ class ConversationMainView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const heightOfContainer = 50;
     return Container(
       height: double.infinity,
       width: double.infinity,
@@ -33,7 +34,7 @@ class ConversationMainView extends StatelessWidget {
           Container(
             height: MediaQuery.of(context).size.height -
                 AppBar().preferredSize.height -
-                50 -
+                heightOfContainer -
                 20,
             color: Colors.yellow,
             child: BlocProvider(
@@ -51,7 +52,7 @@ class ConversationMainView extends StatelessWidget {
             ),
           ),
           Container(
-            height: 50,
+            height: heightOfContainer.toDouble(),
             color: Colors.green,
             padding: const EdgeInsets.all(5),
             child: Center(

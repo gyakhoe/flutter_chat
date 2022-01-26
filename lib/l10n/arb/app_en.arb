@@ -36,5 +36,17 @@
     "undefinedStateText": "Undefined state ",
     "@undefinedStateText": {
         "description": "Text to show the state is not handled"
+    },
+    "unableToLoadConversationText": "We are unable to load conversation. Please try again.",
+    "@unableToLoadConversationText": {
+        "description": "Text to show conversation not being loaded"
+    },
+    "unableToFetchMessageText": "Unable to fetch Message",
+    "@unableToFetchMessageText": {
+        "description": "Text to show Messages are not fetched from server"
+    },
+    "noMessgesText": "Say Hi! No messages yet",
+    "@noMessgesText": {
+        "description": "Text to show when there is not messages shared between two user"
     }
 }

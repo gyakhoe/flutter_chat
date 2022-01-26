@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_chat/conversation/conversation.dart';
-import 'package:flutter_chat/conversation/views/conversation_main_view.dart';
 import 'package:flutter_chat/l10n/l10n.dart';
 import 'package:flutter_chat/registration/registration.dart';
 
@@ -84,9 +83,7 @@ class ConversationView extends StatelessWidget {
               return const CircularProgressIndicator();
             } else if (state is ConversationLoadFailure ||
                 state is ConversationCreationFailure) {
-              return const Text(
-                'We are unable to load conversation. Please try again.',
-              );
+              return Text(l10n.unableToLoadConversationText);
             }
             return Text('${l10n.undefinedStateText} ${state.runtimeType}');
           },

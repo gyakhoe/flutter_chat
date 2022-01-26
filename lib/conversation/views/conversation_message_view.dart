@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_chat/conversation/data/models/message.dart';
+import 'package:flutter_chat/l10n/l10n.dart';
 import 'package:flutter_chat/message/bloc/message_receiver_bloc.dart';
 import 'package:flutter_chat/registration/registration.dart';
 
@@ -17,6 +18,7 @@ class ConversationMessageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Center(
       child: BlocBuilder<MessageReceiverBloc, MessageReceiverState>(
         builder: (context, state) {
@@ -30,7 +32,9 @@ class ConversationMessageView extends StatelessWidget {
               loginUID: loginUser.uid,
             );
           }
-          return Text(state.runtimeType.toString());
+          return Text(
+            '${l10n.undefinedStateText} ${state.runtimeType.toString()}',
+          );
         },
       ),
     );
@@ -48,8 +52,9 @@ class _MessageListBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return messages.isEmpty
-        ? const Text('Say hi! No messages yet')
+        ? Text(l10n.unableToFetchMessageText)
         : ListView.builder(
             itemCount: messages.length,
             reverse: true,
