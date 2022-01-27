@@ -86,8 +86,8 @@ class _HomeViewState extends State<HomeView> {
             authenticatedUser: widget.authenticateduser,
           );
         } else {
-          return const Center(
-            child: Text('Profile page will be displayed here'),
+          return Center(
+            child: Text('You are ${widget.authenticateduser.displayName}'),
           );
         }
       },
