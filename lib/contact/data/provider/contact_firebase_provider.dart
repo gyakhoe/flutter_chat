@@ -7,8 +7,9 @@ class ContactFirebaseProvider {
     required this.firestore,
   });
 
-  Future<List<Map<String, dynamic>>> getContacts(
-      {required String loginUID}) async {
+  Future<List<Map<String, dynamic>>> getContacts({
+    required String loginUID,
+  }) async {
     final userQuerySnap = await firestore
         .collection('users')
         .where('uid', isNotEqualTo: loginUID)
